@@ -11,12 +11,18 @@ const confirmationTitle = document.querySelector('#confirmation-title');
 const confirmationCopy = document.querySelector('#confirmation-copy');
 const resetButton = document.querySelector('#reset-button');
 const sparkField = document.querySelector('#spark-field');
+const fairyField = document.querySelector('#fairy-field');
 const soundToggle = document.querySelector('#sound-toggle');
 const soundLabel = soundToggle.querySelector('.sound-label');
+const backgroundMusic = document.querySelector('#background-music');
 
 let audioContext;
 let soundEnabled = true;
 let transitioning = false;
+let musicStarted = false;
+let musicFadeFrame;
+
+backgroundMusic.volume = 0;
 
 function getAudioContext() {
   if (!audioContext) {
@@ -43,6 +49,32 @@ function tone({ frequency = 220, endFrequency = frequency, duration = 0.5, type 
   oscillator.connect(gain).connect(ctx.destination);
   oscillator.start(start);
   oscillator.stop(start + duration + 0.05);
+}
+
+function fadeMusic(targetVolume, duration = 1800) {
+  cancelAnimationFrame(musicFadeFrame);
+  const startVolume = backgroundMusic.volume;
+  const startedAt = performance.now();
+
+  function step(now) {
+    const progress = Math.min(1, (now - startedAt) / duration);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    backgroundMusic.volume = startVolume + (targetVolume - startVolume) * eased;
+    if (progress < 1) musicFadeFrame = requestAnimationFrame(step);
+  }
+
+  musicFadeFrame = requestAnimationFrame(step);
+}
+
+async function startBackgroundMusic() {
+  if (musicStarted || !soundEnabled) return;
+  try {
+    await backgroundMusic.play();
+    musicStarted = true;
+    fadeMusic(0.18, 2600);
+  } catch {
+    // The audio file may not yet exist or the browser may require another tap.
+  }
 }
 
 function awakenSound() {
@@ -84,6 +116,29 @@ function createSparkBurst(count = 26, spread = 300) {
   }
 }
 
+function seedFairies(count = 34) {
+  if (!fairyField || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  fairyField.replaceChildren();
+
+  for (let i = 0; i < count; i += 1) {
+    const fairy = document.createElement('i');
+    fairy.className = 'fairy';
+    const startX = Math.random() * 100;
+    const startY = 12 + Math.random() * 82;
+    const driftX = (Math.random() - 0.5) * 34;
+    const driftY = -18 - Math.random() * 42;
+    fairy.style.left = `${startX}%`;
+    fairy.style.top = `${startY}%`;
+    fairy.style.setProperty('--x0', `${(Math.random() - 0.5) * 16}px`);
+    fairy.style.setProperty('--y0', `${Math.random() * 16}px`);
+    fairy.style.setProperty('--x1', `${driftX}vw`);
+    fairy.style.setProperty('--y1', `${driftY}vh`);
+    fairy.style.setProperty('--duration', `${7 + Math.random() * 9}s`);
+    fairy.style.setProperty('--delay', `${-Math.random() * 12}s`);
+    fairyField.appendChild(fairy);
+  }
+}
+
 function swapView(from, to, { sound = true } = {}) {
   if (transitioning) return;
   transitioning = true;
@@ -97,7 +152,7 @@ function swapView(from, to, { sound = true } = {}) {
     from.classList.remove('view-exit');
     to.hidden = false;
     requestAnimationFrame(() => to.classList.add('active-view'));
-    createSparkBurst(14, 190);
+    createSparkBurst(18, 220);
   }, 560);
 
   window.setTimeout(() => {
@@ -106,20 +161,33 @@ function swapView(from, to, { sound = true } = {}) {
   }, 1180);
 }
 
-soundToggle.addEventListener('click', () => {
+soundToggle.addEventListener('click', async () => {
   soundEnabled = !soundEnabled;
   soundToggle.setAttribute('aria-pressed', String(soundEnabled));
-  soundToggle.setAttribute('aria-label', soundEnabled ? 'Mute magical sound effects' : 'Enable magical sound effects');
+  soundToggle.setAttribute('aria-label', soundEnabled ? 'Mute magical sound effects and music' : 'Enable magical sound effects and music');
   soundLabel.textContent = soundEnabled ? 'Sound on' : 'Sound off';
-  if (soundEnabled) tone({ frequency: 440, endFrequency: 660, duration: 0.35, volume: 0.035 });
+
+  if (soundEnabled) {
+    tone({ frequency: 440, endFrequency: 660, duration: 0.35, volume: 0.035 });
+    if (musicStarted) {
+      await backgroundMusic.play().catch(() => {});
+      fadeMusic(0.18, 900);
+    } else {
+      startBackgroundMusic();
+    }
+  } else {
+    fadeMusic(0, 500);
+    window.setTimeout(() => backgroundMusic.pause(), 520);
+  }
 });
 
 awakenButton.addEventListener('click', () => {
   if (transitioning) return;
+  startBackgroundMusic();
   awakenSound();
   tablet.classList.remove('dormant');
   tablet.classList.add('awake', 'flash');
-  createSparkBurst(42, 360);
+  createSparkBurst(58, 410);
   window.setTimeout(() => tablet.classList.remove('flash'), 1250);
   window.setTimeout(() => swapView(awakening, commission, { sound: false }), 760);
 });
@@ -132,7 +200,7 @@ openLedgerButton.addEventListener('click', () => {
 document.querySelectorAll('input[type="radio"]').forEach((input) => {
   input.addEventListener('change', () => {
     tone({ frequency: 360, endFrequency: 520, duration: 0.28, type: 'sine', volume: 0.025 });
-    createSparkBurst(7, 85);
+    createSparkBurst(10, 105);
   });
 });
 
@@ -163,7 +231,7 @@ form.addEventListener('submit', (event) => {
 
   sealSound();
   tablet.classList.add('flash');
-  createSparkBurst(52, 390);
+  createSparkBurst(72, 450);
   window.setTimeout(() => tablet.classList.remove('flash'), 1250);
   window.setTimeout(() => swapView(register, confirmation, { sound: false }), 680);
 });
@@ -173,3 +241,10 @@ resetButton.addEventListener('click', () => {
   form.reset();
   swapView(confirmation, register);
 });
+
+backgroundMusic.addEventListener('error', () => {
+  musicStarted = false;
+});
+
+seedFairies();
+window.addEventListener('resize', () => seedFairies(window.innerWidth < 600 ? 24 : 34));
