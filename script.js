@@ -144,9 +144,6 @@ function swapView(from, to, { sound = true, focusTarget = null } = {}) {
   if (transitioning) return;
   transitioning = true;
   const { swapAt, finishAt } = getTransitionTiming();
-
-  // Lock the tablet's rendered height during the handoff so different view
-  // lengths cannot cause a mid-animation layout jump on mobile Safari.
   const lockedHeight = stoneCore.getBoundingClientRect().height;
   stoneCore.style.height = `${lockedHeight}px`;
 
@@ -221,21 +218,25 @@ form.addEventListener('submit', (event) => {
   const data = new FormData(form);
   const name = String(data.get('name') || '').trim();
   const attendance = data.get('attendance');
+
   if (!name || !attendance) {
-    errorBox.textContent = 'The stone requires both a name and an answer.';
+    errorBox.textContent = 'Grimoire Fatum requires both a name and an answer.';
     tablet.classList.add('flash');
     errorSound();
     window.setTimeout(() => tablet.classList.remove('flash'), 900);
     return;
   }
+
   localStorage.setItem('guild-rsvp-demo', JSON.stringify({ name, attendance, eventDate: 'October 16', submittedAt: new Date().toISOString() }));
+
   if (attendance === 'attending') {
-    confirmationTitle.textContent = `The commission is accepted, ${name}.`;
-    confirmationCopy.textContent = 'Your name has been carved into the Seventh Ledger. A place shall be prepared on October XVI.';
+    confirmationTitle.textContent = `Grimoire Fatum has accepted your name, ${name}.`;
+    confirmationCopy.textContent = 'Your name has been inscribed within Grimoire Fatum. May fate guide your journey on October XVI.';
   } else {
-    confirmationTitle.textContent = `Your absence is recorded, ${name}.`;
-    confirmationCopy.textContent = 'The living ledger releases you from the commission and wishes you safe passage.';
+    confirmationTitle.textContent = `Your answer has been recorded, ${name}.`;
+    confirmationCopy.textContent = 'Your name has been respectfully withdrawn from Grimoire Fatum. May fate guide you elsewhere.';
   }
+
   sealSound();
   tablet.classList.add('flash');
   createSparkBurst(72, 450);
