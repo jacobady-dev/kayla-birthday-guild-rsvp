@@ -3,111 +3,107 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0e0b08" />
-  <title>The Adventurers’ Guild | October 16</title>
+  <meta name="theme-color" content="#050807" />
+  <title>The Living Ledger | October XVI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="firelight" aria-hidden="true"></div>
+  <div class="mist" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
 
-  <header class="guild-header">
-    <div class="header-inner">
-      <div class="guild-mark" aria-hidden="true">✦</div>
-      <div>
-        <p>Fortune favors the bold</p>
-        <h1>The Adventurers’ Guild</h1>
+  <main class="relic-stage">
+    <p class="archive-label">The Seventh Guild Archive</p>
+
+    <section id="tablet" class="tablet dormant" aria-labelledby="tablet-title">
+      <div class="ring ring-outer" aria-hidden="true">
+        <span>ᚠ</span><span>ᚢ</span><span>ᚦ</span><span>ᚨ</span><span>ᚱ</span><span>ᚲ</span><span>ᚷ</span><span>ᚹ</span>
       </div>
-      <a href="#register">Answer the Call</a>
-    </div>
-  </header>
-
-  <main class="board-shell">
-    <aside class="banner" aria-hidden="true">
-      <span class="banner-star">✦</span>
-      <span class="banner-sword">†</span>
-      <span class="banner-laurel">❧</span>
-    </aside>
-
-    <section class="commission-panel" aria-labelledby="commission-title">
-      <div class="tack tack-one" aria-hidden="true"></div>
-      <div class="tack tack-two" aria-hidden="true"></div>
-
-      <div class="date-medallion" aria-label="October 16">
-        <span>October</span>
-        <strong>16</strong>
+      <div class="ring ring-inner" aria-hidden="true">
+        <span>✦</span><span>☾</span><span>◇</span><span>✧</span><span>◈</span><span>☽</span>
       </div>
 
-      <p class="kicker">New commission</p>
-      <h2 id="commission-title">A Private<br>Commission</h2>
-      <div class="ornament" aria-hidden="true"><span></span>✦<span></span></div>
+      <div class="stone-core">
+        <div class="cracks" aria-hidden="true"></div>
+        <div class="corner corner-a" aria-hidden="true">⌜</div>
+        <div class="corner corner-b" aria-hidden="true">⌝</div>
+        <div class="corner corner-c" aria-hidden="true">⌞</div>
+        <div class="corner corner-d" aria-hidden="true">⌟</div>
 
-      <p>A patron of quiet standing seeks a small company of capable adventurers for an evening yet to come.</p>
-      <p>The journey is expected to be straightforward. The company, exceptional.</p>
-      <p>Discretion, courage, and good humor are required. Supper and celebration shall be provided.</p>
-
-      <dl class="quest-details">
-        <div><dt>When</dt><dd>October 16</dd></div>
-        <div><dt>Danger</dt><dd>Unknown</dd></div>
-        <div><dt>Reward</dt><dd>Fellowship &amp; feast</dd></div>
-        <div><dt>Dress</dt><dd>Adventuring finest</dd></div>
-      </dl>
-
-      <p class="script-note">Those willing to answer the call should enter their name in the guild register.</p>
-      <div class="wax-seal" aria-hidden="true"><span>W</span></div>
-    </section>
-
-    <section id="register" class="register-panel" aria-labelledby="register-title">
-      <p class="kicker">Guild register</p>
-      <h2 id="register-title">Will You<br>Answer the Call?</h2>
-      <div class="ornament gold" aria-hidden="true"><span></span>◆<span></span></div>
-
-      <form id="rsvp-form" novalidate>
-        <label for="adventurer-name">Name entered in the ledger</label>
-        <div class="input-wrap">
-          <input id="adventurer-name" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Enter your name" required />
-          <span aria-hidden="true">❧</span>
+        <div id="awakening" class="awakening-view">
+          <div class="sigil" aria-hidden="true">
+            <span class="sigil-orbit"></span>
+            <span class="sigil-mark">ᛉ</span>
+          </div>
+          <p class="rune-line">ᚨ ᚲᛟᛗᛗᛁᛋᛋᛁᛟᚾ ᚨᚹᚨᛁᛏᛋ</p>
+          <h1 id="tablet-title">The Living Ledger</h1>
+          <p class="invocation">A sealed commission waits within the stone.</p>
+          <button id="awaken-button" class="glyph-button" type="button">
+            <span>Awaken the Tablet</span>
+          </button>
         </div>
 
-        <fieldset>
-          <legend>Your response</legend>
-          <label class="choice-card">
-            <input type="radio" name="attendance" value="attending" required />
-            <span class="choice-icon" aria-hidden="true">✦</span>
-            <span class="choice-copy">
-              <strong>I accept the commission</strong>
-              <small>Prepare a place at the guild table.</small>
-            </span>
-          </label>
-          <label class="choice-card">
-            <input type="radio" name="attendance" value="declining" required />
-            <span class="choice-icon" aria-hidden="true">☾</span>
-            <span class="choice-copy">
-              <strong>I must decline</strong>
-              <small>May fortune favor the company in my absence.</small>
-            </span>
-          </label>
-        </fieldset>
+        <div id="commission" class="commission-view" hidden>
+          <p class="folio">Commission VII · Private Summons</p>
+          <div class="date-glyph" aria-label="October 16">
+            <span>October</span>
+            <strong>XVI</strong>
+          </div>
+          <h2>A Company Is Called</h2>
+          <div class="divider" aria-hidden="true">✦</div>
+          <p>A patron of quiet standing seeks a small company of capable adventurers for an evening of fellowship, celebration, and events not yet written.</p>
+          <p>Those willing to answer shall place their name within the living ledger. Further instruction will arrive by courier.</p>
+          <dl class="inscriptions">
+            <div><dt>When</dt><dd>October XVI</dd></div>
+            <div><dt>Danger</dt><dd>Unrevealed</dd></div>
+            <div><dt>Reward</dt><dd>Fellowship &amp; feast</dd></div>
+          </dl>
+          <button id="open-ledger" class="glyph-button secondary" type="button">Inscribe My Answer</button>
+        </div>
 
-        <button class="seal-button" type="submit"><span>✦</span> Seal My Answer <span>✦</span></button>
-        <p id="form-error" class="form-error" role="alert"></p>
-      </form>
+        <div id="register" class="register-view" hidden>
+          <p class="folio">The Guild Requires an Answer</p>
+          <h2>Enter the Ledger</h2>
+          <form id="rsvp-form" novalidate>
+            <label for="adventurer-name">Your Name</label>
+            <div class="stone-input">
+              <input id="adventurer-name" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Speak your name into the stone" />
+              <span aria-hidden="true">ᚾ</span>
+            </div>
+
+            <fieldset>
+              <legend>Your Answer</legend>
+              <label class="rune-choice">
+                <input type="radio" name="attendance" value="attending" required />
+                <span class="choice-rune">ᛟ</span>
+                <span><strong>I accept the commission</strong><small>A place shall be prepared.</small></span>
+              </label>
+              <label class="rune-choice">
+                <input type="radio" name="attendance" value="declining" required />
+                <span class="choice-rune">ᚾ</span>
+                <span><strong>I must decline</strong><small>My absence shall be recorded.</small></span>
+              </label>
+            </fieldset>
+
+            <button class="glyph-button seal-answer" type="submit">Seal the Inscription</button>
+            <p id="form-error" class="form-error" role="alert"></p>
+          </form>
+        </div>
+
+        <div id="confirmation" class="confirmation-view" hidden aria-live="polite">
+          <div class="burning-seal" aria-hidden="true">✦</div>
+          <p class="folio">The Stone Remembers</p>
+          <h2 id="confirmation-title"></h2>
+          <p id="confirmation-copy"></p>
+          <button id="reset-button" class="text-button" type="button">Rewrite the inscription</button>
+        </div>
+      </div>
     </section>
 
-    <section id="confirmation" class="confirmation" hidden aria-live="polite">
-      <div class="confirmation-seal" aria-hidden="true">✓</div>
-      <p class="kicker">The ledger is sealed</p>
-      <h2 id="confirmation-title"></h2>
-      <p id="confirmation-copy"></p>
-      <button id="reset-button" type="button">Change my response</button>
-    </section>
+    <p class="closing-mark">October XVI · The hour shall be revealed</p>
   </main>
-
-  <footer>
-    <span>October 16</span><i aria-hidden="true">✦</i><span>Further instructions shall arrive by courier</span>
-  </footer>
 
   <script src="script.js"></script>
 </body>
