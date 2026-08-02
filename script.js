@@ -1,4 +1,5 @@
 const tablet = document.querySelector('#tablet');
+const stoneCore = tablet.querySelector('.stone-core');
 const awakening = document.querySelector('#awakening');
 const commission = document.querySelector('#commission');
 const register = document.querySelector('#register');
@@ -55,14 +56,12 @@ function fadeMusic(targetVolume, duration = 1800) {
   cancelAnimationFrame(musicFadeFrame);
   const startVolume = backgroundMusic.volume;
   const startedAt = performance.now();
-
   function step(now) {
     const progress = Math.min(1, (now - startedAt) / duration);
     const eased = 1 - Math.pow(1 - progress, 3);
     backgroundMusic.volume = startVolume + (targetVolume - startVolume) * eased;
     if (progress < 1) musicFadeFrame = requestAnimationFrame(step);
   }
-
   musicFadeFrame = requestAnimationFrame(step);
 }
 
@@ -71,10 +70,8 @@ async function startBackgroundMusic() {
   try {
     await backgroundMusic.play();
     musicStarted = true;
-    fadeMusic(0.18, 2600);
-  } catch {
-    // The audio file may not yet exist or the browser may require another tap.
-  }
+    fadeMusic(0.09, 2600);
+  } catch {}
 }
 
 function awakenSound() {
@@ -99,9 +96,10 @@ function errorSound() {
 }
 
 function createSparkBurst(count = 26, spread = 300) {
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reducedMotion) return;
-  for (let i = 0; i < count; i += 1) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const mobile = window.matchMedia('(max-width: 600px)').matches;
+  const safeCount = mobile ? Math.ceil(count * 0.55) : count;
+  for (let i = 0; i < safeCount; i += 1) {
     const spark = document.createElement('i');
     spark.className = 'spark';
     const angle = Math.random() * Math.PI * 2;
@@ -119,29 +117,39 @@ function createSparkBurst(count = 26, spread = 300) {
 function seedFairies(count = 34) {
   if (!fairyField || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   fairyField.replaceChildren();
-
   for (let i = 0; i < count; i += 1) {
     const fairy = document.createElement('i');
     fairy.className = 'fairy';
     const startX = Math.random() * 100;
     const startY = 12 + Math.random() * 82;
-    const driftX = (Math.random() - 0.5) * 34;
-    const driftY = -18 - Math.random() * 42;
     fairy.style.left = `${startX}%`;
     fairy.style.top = `${startY}%`;
     fairy.style.setProperty('--x0', `${(Math.random() - 0.5) * 16}px`);
     fairy.style.setProperty('--y0', `${Math.random() * 16}px`);
-    fairy.style.setProperty('--x1', `${driftX}vw`);
-    fairy.style.setProperty('--y1', `${driftY}vh`);
+    fairy.style.setProperty('--x1', `${(Math.random() - 0.5) * 34}vw`);
+    fairy.style.setProperty('--y1', `${-18 - Math.random() * 42}vh`);
     fairy.style.setProperty('--duration', `${7 + Math.random() * 9}s`);
     fairy.style.setProperty('--delay', `${-Math.random() * 12}s`);
     fairyField.appendChild(fairy);
   }
 }
 
-function swapView(from, to, { sound = true } = {}) {
+function getTransitionTiming() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return { swapAt: 0, finishAt: 0 };
+  if (window.matchMedia('(max-width: 600px)').matches) return { swapAt: 300, finishAt: 780 };
+  return { swapAt: 410, finishAt: 980 };
+}
+
+function swapView(from, to, { sound = true, focusTarget = null } = {}) {
   if (transitioning) return;
   transitioning = true;
+  const { swapAt, finishAt } = getTransitionTiming();
+
+  // Lock the tablet's rendered height during the handoff so different view
+  // lengths cannot cause a mid-animation layout jump on mobile Safari.
+  const lockedHeight = stoneCore.getBoundingClientRect().height;
+  stoneCore.style.height = `${lockedHeight}px`;
+
   tablet.classList.add('turning');
   from.classList.remove('active-view');
   from.classList.add('view-exit');
@@ -151,14 +159,21 @@ function swapView(from, to, { sound = true } = {}) {
     from.hidden = true;
     from.classList.remove('view-exit');
     to.hidden = false;
-    requestAnimationFrame(() => to.classList.add('active-view'));
+    to.classList.remove('active-view');
+    void to.offsetWidth;
+    to.classList.add('active-view');
     createSparkBurst(18, 220);
-  }, 560);
+  }, swapAt);
 
   window.setTimeout(() => {
     tablet.classList.remove('turning');
+    stoneCore.style.height = '';
     transitioning = false;
-  }, 1180);
+    if (focusTarget) {
+      try { focusTarget.focus({ preventScroll: true }); }
+      catch { focusTarget.focus(); }
+    }
+  }, finishAt);
 }
 
 soundToggle.addEventListener('click', async () => {
@@ -166,15 +181,12 @@ soundToggle.addEventListener('click', async () => {
   soundToggle.setAttribute('aria-pressed', String(soundEnabled));
   soundToggle.setAttribute('aria-label', soundEnabled ? 'Mute magical sound effects and music' : 'Enable magical sound effects and music');
   soundLabel.textContent = soundEnabled ? 'Sound on' : 'Sound off';
-
   if (soundEnabled) {
     tone({ frequency: 440, endFrequency: 660, duration: 0.35, volume: 0.035 });
     if (musicStarted) {
       await backgroundMusic.play().catch(() => {});
-      fadeMusic(0.18, 900);
-    } else {
-      startBackgroundMusic();
-    }
+      fadeMusic(0.09, 900);
+    } else startBackgroundMusic();
   } else {
     fadeMusic(0, 500);
     window.setTimeout(() => backgroundMusic.pause(), 520);
@@ -193,8 +205,7 @@ awakenButton.addEventListener('click', () => {
 });
 
 openLedgerButton.addEventListener('click', () => {
-  swapView(commission, register);
-  window.setTimeout(() => document.querySelector('#adventurer-name').focus(), 900);
+  swapView(commission, register, { focusTarget: document.querySelector('#adventurer-name') });
 });
 
 document.querySelectorAll('input[type="radio"]').forEach((input) => {
@@ -210,7 +221,6 @@ form.addEventListener('submit', (event) => {
   const data = new FormData(form);
   const name = String(data.get('name') || '').trim();
   const attendance = data.get('attendance');
-
   if (!name || !attendance) {
     errorBox.textContent = 'The stone requires both a name and an answer.';
     tablet.classList.add('flash');
@@ -218,9 +228,7 @@ form.addEventListener('submit', (event) => {
     window.setTimeout(() => tablet.classList.remove('flash'), 900);
     return;
   }
-
   localStorage.setItem('guild-rsvp-demo', JSON.stringify({ name, attendance, eventDate: 'October 16', submittedAt: new Date().toISOString() }));
-
   if (attendance === 'attending') {
     confirmationTitle.textContent = `The commission is accepted, ${name}.`;
     confirmationCopy.textContent = 'Your name has been carved into the Seventh Ledger. A place shall be prepared on October XVI.';
@@ -228,7 +236,6 @@ form.addEventListener('submit', (event) => {
     confirmationTitle.textContent = `Your absence is recorded, ${name}.`;
     confirmationCopy.textContent = 'The living ledger releases you from the commission and wishes you safe passage.';
   }
-
   sealSound();
   tablet.classList.add('flash');
   createSparkBurst(72, 450);
@@ -242,9 +249,10 @@ resetButton.addEventListener('click', () => {
   swapView(confirmation, register);
 });
 
-backgroundMusic.addEventListener('error', () => {
-  musicStarted = false;
+backgroundMusic.addEventListener('error', () => { musicStarted = false; });
+seedFairies(window.innerWidth < 600 ? 24 : 34);
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = window.setTimeout(() => seedFairies(window.innerWidth < 600 ? 24 : 34), 180);
 });
-
-seedFairies();
-window.addEventListener('resize', () => seedFairies(window.innerWidth < 600 ? 24 : 34));
