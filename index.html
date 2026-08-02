@@ -14,10 +14,16 @@
   <div class="mist" aria-hidden="true"></div>
   <div class="stars" aria-hidden="true"></div>
 
+  <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="true" aria-label="Mute magical sound effects">
+    <span aria-hidden="true">♪</span><span class="sound-label">Sound on</span>
+  </button>
+
   <main class="relic-stage">
     <p class="archive-label">The Seventh Guild Archive</p>
 
     <section id="tablet" class="tablet dormant" aria-labelledby="tablet-title">
+      <div id="spark-field" class="spark-field" aria-hidden="true"></div>
+
       <div class="ring ring-outer" aria-hidden="true">
         <span>ᚠ</span><span>ᚢ</span><span>ᚦ</span><span>ᚨ</span><span>ᚱ</span><span>ᚲ</span><span>ᚷ</span><span>ᚹ</span>
       </div>
@@ -26,13 +32,14 @@
       </div>
 
       <div class="stone-core">
+        <div class="aura" aria-hidden="true"></div>
         <div class="cracks" aria-hidden="true"></div>
         <div class="corner corner-a" aria-hidden="true">⌜</div>
         <div class="corner corner-b" aria-hidden="true">⌝</div>
         <div class="corner corner-c" aria-hidden="true">⌞</div>
         <div class="corner corner-d" aria-hidden="true">⌟</div>
 
-        <div id="awakening" class="awakening-view">
+        <div id="awakening" class="tablet-view awakening-view active-view">
           <div class="sigil" aria-hidden="true">
             <span class="sigil-orbit"></span>
             <span class="sigil-mark">ᛉ</span>
@@ -40,17 +47,12 @@
           <p class="rune-line">ᚨ ᚲᛟᛗᛗᛁᛋᛋᛁᛟᚾ ᚨᚹᚨᛁᛏᛋ</p>
           <h1 id="tablet-title">The Living Ledger</h1>
           <p class="invocation">A sealed commission waits within the stone.</p>
-          <button id="awaken-button" class="glyph-button" type="button">
-            <span>Awaken the Tablet</span>
-          </button>
+          <button id="awaken-button" class="glyph-button" type="button"><span>Awaken the Tablet</span></button>
         </div>
 
-        <div id="commission" class="commission-view" hidden>
+        <div id="commission" class="tablet-view commission-view" hidden>
           <p class="folio">Commission VII · Private Summons</p>
-          <div class="date-glyph" aria-label="October 16">
-            <span>October</span>
-            <strong>XVI</strong>
-          </div>
+          <div class="date-glyph" aria-label="October 16"><span>October</span><strong>XVI</strong></div>
           <h2>A Company Is Called</h2>
           <div class="divider" aria-hidden="true">✦</div>
           <p>A patron of quiet standing seeks a small company of capable adventurers for an evening of fellowship, celebration, and events not yet written.</p>
@@ -63,7 +65,7 @@
           <button id="open-ledger" class="glyph-button secondary" type="button">Inscribe My Answer</button>
         </div>
 
-        <div id="register" class="register-view" hidden>
+        <div id="register" class="tablet-view register-view" hidden>
           <p class="folio">The Guild Requires an Answer</p>
           <h2>Enter the Ledger</h2>
           <form id="rsvp-form" novalidate>
@@ -72,7 +74,6 @@
               <input id="adventurer-name" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Speak your name into the stone" />
               <span aria-hidden="true">ᚾ</span>
             </div>
-
             <fieldset>
               <legend>Your Answer</legend>
               <label class="rune-choice">
@@ -86,13 +87,12 @@
                 <span><strong>I must decline</strong><small>My absence shall be recorded.</small></span>
               </label>
             </fieldset>
-
             <button class="glyph-button seal-answer" type="submit">Seal the Inscription</button>
             <p id="form-error" class="form-error" role="alert"></p>
           </form>
         </div>
 
-        <div id="confirmation" class="confirmation-view" hidden aria-live="polite">
+        <div id="confirmation" class="tablet-view confirmation-view" hidden aria-live="polite">
           <div class="burning-seal" aria-hidden="true">✦</div>
           <p class="folio">The Stone Remembers</p>
           <h2 id="confirmation-title"></h2>
