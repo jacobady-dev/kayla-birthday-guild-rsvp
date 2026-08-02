@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <title>The Living Ledger | October XVI</title>
+  <title>Grimoire Fatum | October XVI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="fairy-effects.css" />
   <link rel="stylesheet" href="qa-polish.css" />
   <link rel="stylesheet" href="animation-qa.css" />
+  <link rel="stylesheet" href="grimoire-theme.css" />
 </head>
 <body>
   <div class="mist" aria-hidden="true"></div>
@@ -26,7 +27,7 @@
   </button>
 
   <main class="relic-stage">
-    <p class="archive-label">The Seventh Guild Archive</p>
+    <p class="archive-label">Grimoire Fatum · Liber Fati</p>
 
     <section id="tablet" class="tablet dormant" aria-labelledby="tablet-title">
       <div id="spark-field" class="spark-field" aria-hidden="true"></div>
@@ -52,9 +53,10 @@
             <span class="sigil-mark">ᛉ</span>
           </div>
           <p class="rune-line">ᚨ ᚲᛟᛗᛗᛁᛋᛋᛁᛟᚾ ᚨᚹᚨᛁᛏᛋ</p>
-          <h1 id="tablet-title">The Living Ledger</h1>
-          <p class="invocation">A sealed commission waits within the stone.</p>
-          <button id="awaken-button" class="glyph-button" type="button"><span>Awaken the Tablet</span></button>
+          <h1 id="tablet-title">Grimoire Fatum</h1>
+          <p class="grimoire-subtitle">Liber Fati · The Book of Fate</p>
+          <p class="invocation">A sealed commission has manifested within Grimoire Fatum.</p>
+          <button id="awaken-button" class="glyph-button" type="button"><span>Awaken the Grimoire</span></button>
         </div>
 
         <div id="commission" class="tablet-view commission-view" hidden>
@@ -65,7 +67,7 @@
           <p>A patron of quiet standing seeks a small company of capable adventurers to answer a private summons in the northern reaches.</p>
           <p>Though the road is expected to be peaceful, the destination promises warm hospitality, spirited company, and an evening unlike any other.</p>
           <p>Beyond the crossroads lies a place where forgotten histories linger beneath familiar smiles, every guest carries a story worth telling, and every journey has the chance to become a legend.</p>
-          <p>Those willing to answer the call are invited to inscribe their name within the Living Ledger.</p>
+          <p>Those willing to answer the call are invited to inscribe their name within Grimoire Fatum.</p>
           <dl class="inscriptions">
             <div><dt>System</dt><dd>Dungeons &amp; Dragons Fifth Edition (5e)</dd></div>
             <div><dt>Rank</dt><dd>Level III Adventurers</dd></div>
@@ -74,16 +76,16 @@
             <div><dt>Experience</dt><dd>All adventurers welcome</dd></div>
           </dl>
           <p class="invocation">Every great tale begins with accepting the first step.</p>
-          <button id="open-ledger" class="glyph-button secondary" type="button">Inscribe My Answer</button>
+          <button id="open-ledger" class="glyph-button secondary" type="button">Open Grimoire Fatum</button>
         </div>
 
         <div id="register" class="tablet-view register-view" hidden>
-          <p class="folio">The Guild Requires an Answer</p>
-          <h2>Enter the Ledger</h2>
+          <p class="folio">The Grimoire Requires an Answer</p>
+          <h2>Inscribe the Grimoire</h2>
           <form id="rsvp-form" novalidate>
             <label for="adventurer-name">Your Name</label>
             <div class="stone-input">
-              <input id="adventurer-name" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Speak your name into the stone" />
+              <input id="adventurer-name" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Speak your name into the grimoire" />
               <span aria-hidden="true">ᚾ</span>
             </div>
             <fieldset>
@@ -106,7 +108,7 @@
 
         <div id="confirmation" class="tablet-view confirmation-view" hidden aria-live="polite">
           <div class="burning-seal" aria-hidden="true">✦</div>
-          <p class="folio">The Stone Remembers</p>
+          <p class="folio">Grimoire Fatum Remembers</p>
           <h2 id="confirmation-title"></h2>
           <p id="confirmation-copy"></p>
           <button id="reset-button" class="text-button" type="button">Rewrite the inscription</button>
