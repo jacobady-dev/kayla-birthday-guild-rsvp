@@ -1,0 +1,24 @@
+.grimoire-subtitle {
+  margin: -2px 0 18px;
+  color: rgba(255,255,255,.72);
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: clamp(.92rem, 2vw, 1.08rem);
+  font-style: italic;
+  letter-spacing: .08em;
+  text-shadow:
+    1px 0 10px rgba(86,205,255,.2),
+    -1px 0 10px rgba(255,65,150,.13);
+}
+
+.archive-label {
+  text-shadow:
+    1px 0 9px rgba(86,205,255,.22),
+    -1px 0 9px rgba(255,65,150,.14);
+}
+
+@media (max-width: 600px) {
+  .grimoire-subtitle {
+    margin-bottom: 16px;
+    letter-spacing: .06em;
+  }
+}
