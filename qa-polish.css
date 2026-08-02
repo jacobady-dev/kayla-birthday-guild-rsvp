@@ -1,0 +1,224 @@
+/* Final formatting and spacing QA overrides */
+:root {
+  --content-width: 34rem;
+}
+
+.relic-stage {
+  padding-top: clamp(4.25rem, 8vh, 6.5rem);
+  padding-bottom: clamp(2rem, 5vh, 4rem);
+  gap: clamp(.85rem, 2vh, 1.35rem);
+}
+
+.archive-label,
+.closing-mark {
+  max-width: min(88vw, 34rem);
+  line-height: 1.6;
+}
+
+.stone-core {
+  align-content: center;
+}
+
+.tablet-view {
+  max-width: var(--content-width);
+  margin-inline: auto;
+}
+
+.awakening-view,
+.commission-view,
+.register-view,
+.confirmation-view {
+  padding-block: .4rem;
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+.invocation,
+.commission-view > p:not(.folio),
+.confirmation-view p:not(.folio) {
+  text-wrap: pretty;
+}
+
+.date-glyph {
+  margin-block: 1rem 1.1rem;
+}
+
+.commission-view h2 {
+  margin-top: .9rem;
+}
+
+.inscriptions {
+  margin-top: 1.15rem;
+}
+
+.glyph-button.secondary {
+  margin-top: 1.35rem;
+}
+
+form {
+  margin-top: 1.2rem;
+  gap: .9rem;
+}
+
+.rune-choice {
+  min-height: 4.65rem;
+}
+
+.form-error {
+  margin-top: -.25rem;
+}
+
+.sound-toggle {
+  top: max(.75rem, env(safe-area-inset-top));
+  right: max(.75rem, env(safe-area-inset-right));
+}
+
+@media (min-width: 821px) {
+  .tablet {
+    min-height: 650px;
+  }
+
+  .stone-core {
+    min-height: 74%;
+    padding-block: clamp(2.5rem, 5vw, 3.8rem);
+  }
+}
+
+@media (max-width: 820px) {
+  .relic-stage {
+    min-height: 100svh;
+    padding-top: 5.25rem;
+  }
+
+  .tablet {
+    width: min(97vw, 680px);
+    min-height: 690px;
+    aspect-ratio: auto;
+  }
+
+  .stone-core {
+    width: 88%;
+    min-height: 78%;
+    padding: 3rem 1.65rem;
+  }
+
+  .archive-label {
+    padding-inline: 4.8rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .relic-stage {
+    padding: 5rem .35rem 2rem;
+    gap: .7rem;
+  }
+
+  .tablet {
+    width: 100%;
+    min-height: 650px;
+  }
+
+  .stone-core {
+    width: 92%;
+    min-height: 76%;
+    padding: 2.45rem 1.15rem;
+  }
+
+  .tablet-view {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: clamp(2.05rem, 11vw, 2.55rem);
+    margin-top: .8rem;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 9vw, 2.2rem);
+    margin-top: .75rem;
+  }
+
+  .sigil {
+    width: 88px;
+    margin-bottom: 1.15rem;
+  }
+
+  .date-glyph {
+    width: 92px;
+    margin-block: .75rem .85rem;
+  }
+
+  .commission-view > p:not(.folio) {
+    font-size: 1rem;
+    line-height: 1.48;
+    margin-bottom: .7rem;
+  }
+
+  .inscriptions {
+    gap: .5rem;
+  }
+
+  .inscriptions div {
+    grid-template-columns: 4.6rem 1fr;
+    padding-bottom: .45rem;
+  }
+
+  form {
+    gap: .72rem;
+  }
+
+  .rune-choice {
+    grid-template-columns: 1.25rem 1.9rem 1fr;
+    gap: .55rem;
+    min-height: 4.25rem;
+    padding: .75rem .7rem;
+  }
+
+  .rune-choice strong {
+    line-height: 1.25;
+  }
+
+  .glyph-button {
+    max-width: 100%;
+    padding: .8rem .75rem;
+    line-height: 1.35;
+  }
+
+  .glyph-button::before,
+  .glyph-button::after {
+    margin-inline: .35rem;
+  }
+
+  .archive-label,
+  .closing-mark {
+    font-size: .56rem;
+    letter-spacing: .17em;
+  }
+
+  .archive-label {
+    padding-inline: 4.25rem;
+  }
+}
+
+@media (max-height: 720px) and (max-width: 520px) {
+  .relic-stage {
+    align-content: start;
+    padding-top: 4.6rem;
+  }
+
+  .tablet {
+    min-height: 610px;
+  }
+
+  .stone-core {
+    padding-block: 2rem;
+  }
+
+  .sigil {
+    width: 78px;
+    margin-bottom: .8rem;
+  }
+}
