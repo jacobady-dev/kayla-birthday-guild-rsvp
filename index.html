@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#19140f" />
+  <title>Guild Commission RSVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ambient-glow" aria-hidden="true"></div>
+  <div class="embers" aria-hidden="true"></div>
+
+  <main class="site-shell">
+    <header class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">A new commission has been posted</p>
+      <h1 id="page-title">The Adventurers’ Guild</h1>
+      <p class="hero-copy">Roll for initiative, inspect the contract, and enter your name into the guild ledger.</p>
+    </header>
+
+    <section class="dice-stage" aria-labelledby="initiative-title">
+      <div class="stone-frame">
+        <div class="runes" aria-hidden="true">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</div>
+        <h2 id="initiative-title">Roll for Initiative</h2>
+        <p class="stage-copy">The guild insists on ceremony. The result will not affect your invitation. Probably.</p>
+
+        <div id="dice-canvas" class="dice-canvas" aria-label="Interactive three-dimensional twenty-sided die"></div>
+
+        <button id="roll-button" class="primary-button" type="button">
+          <span>Cast the D20</span>
+        </button>
+
+        <div id="roll-result" class="roll-result" role="status" aria-live="polite">
+          Awaiting a brave hand.
+        </div>
+      </div>
+    </section>
+
+    <section id="contract" class="contract-section" aria-labelledby="contract-title">
+      <article class="parchment">
+        <div class="seal-mark" aria-hidden="true">G</div>
+        <p class="contract-kicker">Private commission</p>
+        <h2 id="contract-title">To all capable adventurers</h2>
+        <p>
+          A patron of excellent taste seeks a dependable company for an evening expedition.
+          Supper, celebration, and suspiciously comfortable lodging shall be provided.
+        </p>
+        <p>
+          Those willing to answer the call should enter their name into the ledger below.
+          Further instructions will arrive by courier.
+        </p>
+        <div class="contract-meta">
+          <span>Danger: Undisclosed</span>
+          <span>Reward: Fellowship &amp; Feast</span>
+          <span>Dress: Adventuring Finest</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="ledger-section" aria-labelledby="ledger-title">
+      <div class="ledger">
+        <div class="ledger-header">
+          <p class="contract-kicker">Guild register</p>
+          <h2 id="ledger-title">Will you answer the call?</h2>
+        </div>
+
+        <form id="rsvp-form" novalidate>
+          <label for="adventurer-name">Name entered in the ledger</label>
+          <input id="adventurer-name" name="name" type="text" autocomplete="name" required maxlength="80" />
+
+          <fieldset>
+            <legend>Your answer</legend>
+            <label class="choice-card">
+              <input type="radio" name="attendance" value="attending" required />
+              <span>
+                <strong>I accept the commission</strong>
+                <small>Prepare a place at the guild table.</small>
+              </span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="attendance" value="declining" required />
+              <span>
+                <strong>I must decline</strong>
+                <small>May fortune favor the company in my absence.</small>
+              </span>
+            </label>
+          </fieldset>
+
+          <label for="message">Message for the guildmaster <span>(optional)</span></label>
+          <textarea id="message" name="message" rows="4" maxlength="300" placeholder="Dietary needs, scheduling notes, dramatic last words…"></textarea>
+
+          <button class="seal-button" type="submit">
+            <span class="seal-icon" aria-hidden="true">✦</span>
+            Seal My Answer
+          </button>
+
+          <p id="form-error" class="form-error" role="alert"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="confirmation" class="confirmation" aria-live="polite" hidden>
+      <div class="confirmation-seal" aria-hidden="true">✓</div>
+      <p class="contract-kicker">Ledger updated</p>
+      <h2 id="confirmation-title">Your answer has been sealed.</h2>
+      <p id="confirmation-copy"></p>
+      <button id="reset-button" class="text-button" type="button">Change my response</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>Guild archive prototype · Built for GitHub Pages</p>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
