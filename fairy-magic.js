@@ -1,7 +1,11 @@
-const fairyField = document.createElement('div');
-fairyField.className = 'fairy-field';
-fairyField.setAttribute('aria-hidden', 'true');
-document.body.prepend(fairyField);
+const fairyField = document.querySelector('#fairy-field') || (() => {
+  const field = document.createElement('div');
+  field.id = 'fairy-field';
+  field.className = 'fairy-field';
+  field.setAttribute('aria-hidden', 'true');
+  document.body.prepend(field);
+  return field;
+})();
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
