@@ -19,7 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.saveRsvpToFirestore = async ({ name, attendance }) => {
+async function saveRsvp({ name, attendance }) {
   const cleanName = String(name || '').trim();
 
   if (!cleanName || !['attending', 'declining'].includes(attendance)) {
@@ -31,6 +31,25 @@ window.saveRsvpToFirestore = async ({ name, attendance }) => {
     attendance,
     submittedAt: serverTimestamp()
   });
-};
+}
+
+window.saveRsvpToFirestore = saveRsvp;
+
+const form = document.querySelector('#rsvp-form');
+form?.addEventListener('submit', (event) => {
+  const data = new FormData(event.currentTarget);
+  const name = String(data.get('name') || '').trim();
+  const attendance = data.get('attendance');
+
+  if (!name || !['attending', 'declining'].includes(attendance)) return;
+
+  saveRsvp({ name, attendance }).catch((error) => {
+    console.error('Firebase RSVP submission failed:', error);
+    const errorBox = document.querySelector('#form-error');
+    if (errorBox) {
+      errorBox.textContent = 'The inscription could not reach the archive. Please try again.';
+    }
+  });
+}, { capture: true });
 
 window.dispatchEvent(new Event('firebase-rsvp-ready'));
