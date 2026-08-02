@@ -1,0 +1,114 @@
+/* Animation QA: unified timing, smoother transforms, mobile performance, and reduced motion. */
+:root {
+  --motion-fast: 220ms;
+  --motion-view-out: 420ms;
+  --motion-view-in: 700ms;
+  --motion-tablet: 980ms;
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --ease-standard: cubic-bezier(.4,0,.2,1);
+}
+
+.tablet {
+  will-change: transform, filter;
+  transition-duration: 1.15s;
+  transition-timing-function: var(--ease-out);
+}
+
+.stone-core,
+.tablet-view,
+.ring,
+.spark,
+.fairy,
+.touch-spark {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.tablet-view.active-view {
+  animation: qaViewIn var(--motion-view-in) var(--ease-out) both;
+}
+
+.tablet-view.view-exit {
+  pointer-events: none;
+  animation: qaViewOut var(--motion-view-out) var(--ease-standard) both;
+}
+
+.tablet.turning .stone-core {
+  animation: qaStoneTurn var(--motion-tablet) var(--ease-out) both;
+}
+
+.tablet.flash .stone-core {
+  animation: qaTabletFlash 1.05s var(--ease-out) both;
+}
+
+.glyph-button,
+.rune-choice,
+.sound-toggle {
+  transition-duration: var(--motion-fast);
+  transition-timing-function: var(--ease-out);
+}
+
+/* Keep constant ambient motion calm so it does not compete with interaction. */
+.tablet.awake .ring-outer { animation-duration: 58s; }
+.tablet.awake .ring-inner { animation-duration: 41s; }
+.sigil-orbit { animation-duration: 26s; }
+.fairy { animation-timing-function: cubic-bezier(.45,.05,.55,.95); }
+
+@keyframes qaViewIn {
+  0% { opacity: 0; transform: translate3d(0, 12px, 0) scale(.988); filter: blur(5px); }
+  45% { opacity: .72; filter: blur(1.5px); }
+  100% { opacity: 1; transform: translate3d(0,0,0) scale(1); filter: none; }
+}
+
+@keyframes qaViewOut {
+  0% { opacity: 1; transform: translate3d(0,0,0) scale(1); filter: none; }
+  100% { opacity: 0; transform: translate3d(0,-8px,0) scale(.992); filter: blur(3px); }
+}
+
+@keyframes qaStoneTurn {
+  0% { transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1); }
+  38% { transform: perspective(1200px) rotateY(7deg) rotateX(1.2deg) scale(.992); }
+  62% { transform: perspective(1200px) rotateY(-3deg) rotateX(-.5deg) scale(.996); }
+  100% { transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1); }
+}
+
+@keyframes qaTabletFlash {
+  0%,100% { filter: brightness(1); }
+  30% { filter: brightness(1.34); box-shadow: 0 0 62px rgba(255,255,255,.32), 7px 0 42px rgba(75,195,255,.2), -7px 0 42px rgba(255,55,145,.13), inset 0 0 62px rgba(255,255,255,.08); }
+  58% { filter: brightness(1.12); }
+}
+
+@media (max-width: 600px) {
+  .tablet.turning .stone-core { animation-duration: 820ms; }
+  .tablet-view.active-view { animation-duration: 560ms; }
+  .tablet-view.view-exit { animation-duration: 340ms; }
+  .tablet.awake .ring-outer { animation-duration: 70s; }
+  .tablet.awake .ring-inner { animation-duration: 52s; }
+  .fairy:nth-child(n+25) { display: none; }
+}
+
+@media (max-height: 720px) {
+  .tablet.turning .stone-core { animation-duration: 760ms; }
+  .tablet.flash .stone-core { animation-duration: 850ms; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .tablet,
+  .stone-core,
+  .tablet-view,
+  .ring,
+  .sigil-orbit,
+  .aura,
+  .cracks,
+  .burning-seal {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .tablet-view[hidden] { display: none !important; }
+  .fairy-field,
+  .spark-field,
+  .touch-spark { display: none !important; }
+}
