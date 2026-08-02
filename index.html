@@ -10,12 +10,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="chromatic-theme.css" />
+  <link rel="stylesheet" href="fairy-effects.css" />
 </head>
 <body>
   <div class="mist" aria-hidden="true"></div>
   <div class="stars" aria-hidden="true"></div>
+  <div id="fairy-field" class="fairy-field" aria-hidden="true"></div>
 
-  <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="true" aria-label="Mute magical sound effects">
+  <audio id="background-music" preload="auto" loop src="assets/background-music.mp3"></audio>
+
+  <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="true" aria-label="Mute magical sound effects and music">
     <span aria-hidden="true">♪</span><span class="sound-label">Sound on</span>
   </button>
 
