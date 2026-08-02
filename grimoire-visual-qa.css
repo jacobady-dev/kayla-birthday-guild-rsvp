@@ -1,0 +1,273 @@
+/* Final visual QA for Grimoire Fatum: hierarchy, spacing, and mobile fit. */
+
+.archive-label {
+  max-width: min(78vw, 520px);
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+.awakening-view h1,
+.commission-view h2,
+.register-view h2,
+.confirmation-view h2 {
+  text-wrap: balance;
+}
+
+.awakening-view h1 {
+  margin-bottom: 8px;
+  letter-spacing: .015em;
+}
+
+.grimoire-subtitle {
+  max-width: 360px;
+  margin: 0 auto 18px;
+  line-height: 1.35;
+}
+
+.awakening-view .invocation {
+  max-width: 390px;
+  margin-bottom: 24px;
+  line-height: 1.45;
+}
+
+/* The narrative view is intentionally denser than the opening, but remains readable. */
+.commission-view {
+  max-width: 540px;
+  margin-inline: auto;
+}
+
+.commission-view .folio {
+  margin-bottom: 12px;
+}
+
+.commission-view .date-glyph {
+  margin-block: 14px 16px;
+}
+
+.commission-view h2 {
+  margin-block: 10px 8px;
+  font-size: clamp(1.85rem, 4.8vw, 3.15rem);
+}
+
+.commission-view .divider {
+  margin-block: 10px 14px;
+}
+
+.commission-view > p:not(.folio):not(.invocation) {
+  margin-bottom: 10px;
+  font-size: 1.02rem;
+  line-height: 1.48;
+}
+
+.commission-view .inscriptions {
+  margin-top: 18px;
+  gap: 7px;
+}
+
+.commission-view .inscriptions div {
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 12px;
+  padding-bottom: 7px;
+}
+
+.commission-view .inscriptions dd {
+  min-width: 0;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.commission-view > .invocation {
+  margin: 16px auto 0;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.commission-view .secondary {
+  margin-top: 16px;
+}
+
+.register-view .folio,
+.confirmation-view .folio {
+  margin-bottom: 10px;
+}
+
+.register-view h2,
+.confirmation-view h2 {
+  margin-top: 8px;
+}
+
+.register-view form {
+  margin-top: 20px;
+}
+
+.rune-choice strong {
+  line-height: 1.25;
+}
+
+.closing-mark {
+  max-width: 80vw;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+@media (max-width: 600px) {
+  .relic-stage {
+    gap: 14px;
+    padding-top: 54px;
+    padding-bottom: 24px;
+  }
+
+  .archive-label {
+    max-width: 68vw;
+    font-size: .58rem;
+    letter-spacing: .16em;
+  }
+
+  .stone-core {
+    width: 91%;
+    padding-inline: 19px;
+  }
+
+  .awakening-view h1 {
+    font-size: clamp(2.05rem, 10vw, 2.75rem);
+    line-height: 1.03;
+  }
+
+  .grimoire-subtitle {
+    max-width: 280px;
+    margin-bottom: 15px;
+    font-size: .92rem;
+    letter-spacing: .045em;
+  }
+
+  .awakening-view .invocation {
+    max-width: 290px;
+    margin-bottom: 21px;
+    font-size: 1.02rem;
+  }
+
+  .commission-view {
+    max-height: min(690px, 73vh);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,.34) transparent;
+    padding: 2px 7px 18px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 20px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 20px), transparent 100%);
+  }
+
+  .commission-view::-webkit-scrollbar { width: 3px; }
+  .commission-view::-webkit-scrollbar-track { background: transparent; }
+  .commission-view::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(255,255,255,.32);
+  }
+
+  .commission-view .folio {
+    margin-top: 10px;
+    font-size: .55rem;
+    letter-spacing: .16em;
+  }
+
+  .commission-view .date-glyph {
+    width: 92px;
+    margin-block: 12px 14px;
+  }
+
+  .commission-view .date-glyph strong { font-size: 1.85rem; }
+
+  .commission-view h2 {
+    margin-block: 8px 6px;
+    font-size: 1.9rem;
+  }
+
+  .commission-view > p:not(.folio):not(.invocation) {
+    margin-bottom: 9px;
+    font-size: .96rem;
+    line-height: 1.42;
+  }
+
+  .commission-view .inscriptions {
+    margin-top: 15px;
+  }
+
+  .commission-view .inscriptions div {
+    grid-template-columns: 73px minmax(0, 1fr);
+    gap: 9px;
+    align-items: start;
+  }
+
+  .commission-view .inscriptions dt {
+    padding-top: 2px;
+    font-size: .55rem;
+    letter-spacing: .08em;
+  }
+
+  .commission-view .inscriptions dd {
+    font-size: .94rem;
+    line-height: 1.24;
+  }
+
+  .commission-view > .invocation {
+    margin-top: 14px;
+    font-size: .93rem;
+  }
+
+  .commission-view .secondary {
+    max-width: 100%;
+    margin-top: 14px;
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  .register-view h2 {
+    font-size: 1.95rem;
+    line-height: 1.06;
+  }
+
+  .register-view form {
+    gap: 15px;
+  }
+
+  .rune-choice {
+    grid-template-columns: 21px 32px minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .rune-choice strong {
+    font-size: .68rem;
+  }
+
+  .rune-choice small {
+    font-size: .9rem;
+    line-height: 1.2;
+  }
+
+  .closing-mark {
+    font-size: .55rem;
+    letter-spacing: .15em;
+  }
+}
+
+@media (max-width: 380px) {
+  .sound-toggle {
+    top: 9px;
+    right: 9px;
+    padding: 7px 9px;
+  }
+
+  .archive-label {
+    max-width: 62vw;
+  }
+
+  .stone-core {
+    width: 93%;
+    padding-inline: 16px;
+  }
+
+  .glyph-button::before,
+  .glyph-button::after {
+    margin-inline: 6px;
+  }
+}
